@@ -226,7 +226,7 @@ const MODE_NORMAL = 1, MODE_ENDLESS = 2, MODE_PRACTICE = 3;
         if (isNaN(cps) || cps === Infinity || _gameStartTime < 2) {
             cps = 0;
         }
-        return 13.14;
+        return cps;
     }
 
     function timer() {
@@ -393,7 +393,7 @@ const MODE_NORMAL = 1, MODE_ENDLESS = 2, MODE_PRACTICE = 3;
             tar.className = tar.className.replace(_ttreg, ' tt$1');
             _gameBBListIndex++;
             _gameScore++;
-
+            _gameScore++;
             updatePanel();
 
             gameLayerMoveNextRow();
@@ -462,8 +462,8 @@ const MODE_NORMAL = 1, MODE_ENDLESS = 2, MODE_PRACTICE = 3;
     function showGameScoreLayer(cps) {
         let l = $('#GameScoreLayer');
         let c = $(`#${_gameBBList[_gameBBListIndex - 1].id}`).attr('class').match(_ttreg)[1];
-        let score = 235;
-        let best = 235;
+        let score = (mode === MODE_ENDLESS ? cps : _gameScore);
+        let best = getBestScore(score);
         l.attr('class', l.attr('class').replace(/bgc\d/, 'bgc' + c));
         $('#GameScoreLayer-text').html(shareText(cps));
         let normalCond = legalDeviationTime() || mode !== MODE_NORMAL;
